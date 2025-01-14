@@ -11,8 +11,8 @@ class Task extends Model
 
     // Define quais atributos podem ser preenchidos
     protected $fillable = [
-        'title',        // Título da tarefa
-        'description',  // Descrição da tarefa
-        'status',       // Status da tarefa
+        'title',
+        'description',
+        'status',
     ];
 }

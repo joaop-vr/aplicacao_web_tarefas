@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Executa a migração das tabelas para o banco de dados.
      */
     public function up()
     {
@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->enum('status', ['nao iniciado', 'em andamento', 'concluído'])->default('nao iniciado');
+            $table->enum('status', ['nao iniciado', 'em andamento', 'concluido'])->default('nao iniciado');
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Deleta as tabelas do banco de dados.
      */
     public function down(): void
     {
