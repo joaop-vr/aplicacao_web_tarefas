@@ -1,4 +1,5 @@
 <template>
+  <!-- Formulário para criação da Task-->
   <Form
     ref="taskForm"
     :validation-schema="validationSchema"
@@ -44,7 +45,6 @@
 import { onMounted, ref } from "vue";
 import { toTypedSchema } from "@vee-validate/zod";
 import { ErrorMessage, Field, Form } from "vee-validate";
-
 import { taskFormSchema } from "@/schemas";
 import kanbanStore from "@/stores/kanbanStore";
 import { ACTIONS, type Column, type Task } from "@/types";
@@ -60,11 +60,10 @@ const props = defineProps<{
 }>();
 
 const taskForm = ref();
-console.log("Valor de task recebido (Task.vue):", props.task);
 
 onMounted(() => {
   if (props.action === ACTIONS.UPDATE_TASK) {
-    taskForm.value.setFieldValue("title", props.task?.title); //<!-- Alterado de name para title -->
+    taskForm.value.setFieldValue("title", props.task?.title);
     taskForm.value.setFieldValue("description", props.task?.description);
     taskForm.value.setFieldValue("status", props.task?.status);
   }
@@ -86,12 +85,12 @@ async function onSubmit(values: any) {
     } else if (props.action === ACTIONS.UPDATE_TASK && props.task) {
       // Passando o taskId diretamente da props
       const updatedTask = await kanbanStore.updateTask(props.task.taskId, {
-        title: values.title, // Valores do formulário
+        title: values.title,
         description: values.description,
         status: values.status,
       });
     }
-    emit("close-modal"); // Fechar o modal após a ação ser completada
+    emit("close-modal");
   } catch (error) {
     console.error("Erro ao enviar tarefa:", error);
   }

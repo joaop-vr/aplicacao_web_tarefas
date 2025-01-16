@@ -1,5 +1,6 @@
 <template>
   <DropZone @drop-data="onTaskDrop">
+    <!-- Componente Task propriamente-->
     <Draggable
       class="shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] rounded p-2"
       :transfer-data="{
@@ -9,9 +10,7 @@
     >
       <div>
         <div class="flex gap-2">
-          <span class="font-bold"
-            >ID: {{ task.taskId }} - {{ task.title }}</span
-          >
+          <span class="font-bold">{{ task.title }}</span>
 
           <div class="flex gap-1">
             <button class="text-sm font-bold" @click="toggleDeleteTaskModal()">
@@ -33,11 +32,14 @@
         </div>
         <div></div>
       </div>
-      <p class="w-full mt-1 text-sm text-gray-400">{{ task.description }}</p>
-      <p class="w-full mt-1 text-sm text-gray-400">{{ task.status }}</p>
+      <p class="w-full mt-1 text-sm text-gray-400">ID: {{ task.taskId }}</p>
+      <p class="w-full mt-1 text-sm text-gray-400">
+        Desc.: {{ task.description }}
+      </p>
     </Draggable>
   </DropZone>
 
+  <!-- Modal para editar a tarefa -->
   <Modal
     :is-modal-active="isTaskModalActive"
     :heading="`Editar Tarefa`"
@@ -50,7 +52,7 @@
       @close-modal="toggleTaskModal()"
     />
   </Modal>
-
+  <!-- Modal para deletar tarefa -->
   <Modal
     :is-modal-active="isDeleteTaskModalActive"
     :heading="`Deletar Tarefa`"
@@ -85,8 +87,6 @@ const props = defineProps<{
   task: Task;
   columnId: Column["columnId"];
 }>();
-
-console.log("Valor de task recebido (Task.vue):", props.task);
 
 const isTaskModalActive = ref(false);
 const isDeleteTaskModalActive = ref(false);

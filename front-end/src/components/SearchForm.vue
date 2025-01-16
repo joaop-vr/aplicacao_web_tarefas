@@ -5,7 +5,7 @@
       <input
         type="text"
         @input="onInput"
-        placeholder="Filtrar por Título ou id"
+        placeholder="Pesquisar por Título ou id"
         class="bg-gray-50 border border-gray-300 px-2"
       />
     </div>

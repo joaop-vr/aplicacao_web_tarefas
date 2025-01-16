@@ -1,11 +1,15 @@
 import type { Column, Task } from "@/types";
 import { useLocalStorage } from "@vueuse/core";
 import { v4 as uuidv4 } from "uuid";
+import { ref } from "vue";
 import axios from "axios";
 
 // URL base da API
-const API_BASE_URL = "http://127.0.0.1:8000/api"; // Substitua pela URL correta
+const API_BASE_URL = "http://127.0.0.1:8000/api";
 let key = "KANBAN-STORE";
+
+// Estados locais relacionados à pesquisa
+export const selectedTask = ref<any>(null);
 
 export const STORE = useLocalStorage<Column[]>(key, []);
 
@@ -62,7 +66,6 @@ export function moveColumn(
 export async function fetchTasks() {
   try {
     const response = await axios.get(`${API_BASE_URL}/tasks`);
-    console.log("Dados recebidos do banco:", response.data);
 
     // Formatação dos dados para renomear 'id' para 'taskId'
     const formattedData = response.data.map((task: any) => ({
@@ -70,11 +73,37 @@ export async function fetchTasks() {
       taskId: task.id, // Renomeia o campo 'id' para 'taskId'
     }));
 
-    console.log("Dados formatados:", formattedData);
     return formattedData; // Retorna os dados formatados
   } catch (error) {
     console.error("Erro ao buscar tarefas:", error);
     throw error;
+  }
+}
+
+// Função para buscar task por ID
+export async function getTaskById(taskId: number): Promise<void> {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/task/${taskId}`);
+    const taskData = response.data?.data; // Extraindo a propriedade `data`
+
+    if (taskData) {
+      // Atualizando o selectedTask com os dados completos do backend
+      selectedTask.value = {
+        taskId: taskData.id, // Renomeando `id` para `taskId`
+        title: taskData.title,
+        description: taskData.description,
+        status: taskData.status,
+        created_at: taskData.created_at,
+        updated_at: taskData.updated_at,
+      };
+    } else {
+      console.warn("Task não encontrada.");
+      selectedTask.value = null; // Reseta caso a task não seja encontrada
+    }
+  } catch (error) {
+    console.error("Erro ao buscar a task:", error);
+    alert("Ocorreu um erro ao buscar a task.");
+    selectedTask.value = null; // Reseta em caso de erro
   }
 }
 
@@ -83,18 +112,15 @@ export async function loadTasks() {
   try {
     const tasks: Task[] = await fetchTasks();
 
-    console.log("Resposta do Fetch:");
-    console.log(tasks);
-
     // Atualiza as tarefas em cada coluna de acordo com o status
     STORE.value.forEach((column: Column) => {
       column.tasks = tasks.filter((task) => {
-        // Formate o nome da coluna para garantir que a comparação seja feita corretamente
+        // Formatação dos nomes das colunas (Front-end tem acentuação mas back-end não)
         const formattedColumnName = column.name
           .toLowerCase()
-          .normalize("NFD") // Normaliza a string para decompor os caracteres com acento
-          .replace(/[\u0300-\u036f]/g, "") // Remove os acentos
-          .replace(" ", "-"); // Substitui o espaço por hífen
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(" ", "-");
         console.log(`formattedColumnName: ${formattedColumnName}`);
 
         // Verifique se o status da tarefa corresponde ao nome da coluna
@@ -104,10 +130,6 @@ export async function loadTasks() {
         return false;
       });
     });
-
-    // Verifique o conteúdo de STORE após a atualização
-    console.log("Valores de STORE:");
-    console.log(STORE.value);
   } catch (error) {
     console.error("Erro ao carregar tarefas:", error);
   }
@@ -133,7 +155,6 @@ export async function updateTask(
   updates: Partial<Task>
 ) {
   try {
-    console.log(`taskId: ${taskId} | updates: ${JSON.stringify(updates)}`);
     const response = await axios.put(`${API_BASE_URL}/task/${taskId}`, updates);
     return response.data;
   } catch (error) {
@@ -153,6 +174,8 @@ export async function deleteTask(taskId: Task["taskId"]) {
   }
 }
 
+// FUnção que move uma tarefa de uma coluna para a outra.
+// A cada movimentação, o back-end é atualizado
 export async function moveTask(
   taskId: Task["taskId"],
   targetColumnId: Column["columnId"],
@@ -206,10 +229,9 @@ export async function moveTask(
     targetColumn.tasks.push(currentTask);
   }
 
-  // Agora, envia a tarefa movida para o servidor via PUT
+  // Envia a tarefa movida para o servidor via PUT
   try {
-    await axios.put(`${API_BASE_URL}/task/${taskId}`, currentTask); // Envia a tarefa atualizada para o banco
-    console.log("Tarefa movida e atualizada com sucesso no banco de dados.");
+    await axios.put(`${API_BASE_URL}/task/${taskId}`, currentTask);
   } catch (error) {
     console.error("Erro ao atualizar a tarefa no banco de dados:", error);
   }
@@ -225,4 +247,5 @@ export default {
   deleteTask,
   moveTask,
   moveColumn,
+  getTaskById,
 };

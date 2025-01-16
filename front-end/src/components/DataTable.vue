@@ -5,9 +5,7 @@
       <SearchForm @search="handleSearch" />
       <div class="flex items-center justify-end text-sm font-semibold">
         <!-- Botões de filtro -->
-        //<FilterButtons @filter="handleFilter" />
-        <!-- Lista de filtros -->
-        <FilterDropdown />
+        <FilterButtons @filter="handleFilter" />
       </div>
     </div>
     <table class="w-full text-sm text-left text-gray-500">
@@ -39,9 +37,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import FilterDropdown from "./FilterDropdown.vue";
+import FilterButtons from "./FilterButtons.vue";
 import SearchForm from "./SearchForm.vue";
-//import FilterButtons from "./;
 import type { Task } from "@/types";
 
 const props = defineProps<{
@@ -53,15 +50,6 @@ const radioFilter = ref<string>("");
 
 const filteredTasks = computed(() => {
   let tasks = [...props.tasks];
-
-  switch (radioFilter.value) {
-    case "today":
-      // Adicionar lógica para "today"
-      break;
-    case "past":
-      // Adicionar lógica para "past"
-      break;
-  }
 
   if (searchFilter.value) {
     tasks = tasks.filter(

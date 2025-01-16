@@ -1,5 +1,6 @@
 <template>
   <DropZone @drop-data="onDrop">
+    <!-- Componente Column propriamente-->
     <Draggable
       :transfer-data="{
         columnId: column.columnId,
@@ -26,6 +27,8 @@
       </div>
     </Draggable>
   </DropZone>
+
+  <!-- Modal para atualizar coluna -->
   <Modal
     :is-modal-active="isUpdateColumnModalActive"
     :heading="`${ACTIONS.UPDATE_COLUMN.split('_').join(' ')}`"
@@ -38,6 +41,7 @@
     />
   </Modal>
 
+  <!-- Modal para deletar coluna -->
   <Modal
     :is-modal-active="isDeleteColumnModalActive"
     :heading="`Deletar Tarefa`"
