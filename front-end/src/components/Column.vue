@@ -7,25 +7,14 @@
       }"
       class="p-2 w-64 bg-gray-100 shadow-lg shadow-slate-800 rounded"
     >
-      <div class="flex justify-between items-center">
+      <div class="flex justify-center items-center">
         <div class="flex gap-2 items-center">
-          <span class="text-xl font-semibold overflow-x-auto w-40 py-1">
+          <span
+            class="flex justify-center text-xl font-semibold overflow-x-auto w-40 py-1"
+          >
             {{ column.name }}
           </span>
-
-          <button @click="setSelectedColumn(ACTIONS.UPDATE_COLUMN, column)">
-            &#9998;
-          </button>
-          <button
-            class="font-bold"
-            @click="setSelectedColumn(ACTIONS.DELETE_COLUMN, column)"
-          >
-            &#88;
-          </button>
         </div>
-        <button class="text-2xl font-bold" @click="addTask(column.columnId)">
-          +
-        </button>
       </div>
       <div class="flex flex-col gap-2 overflow-y-auto h-[35rem] p-2">
         <Task
@@ -76,7 +65,7 @@
   </Modal>
 </template>
 <script setup lang="ts">
-import { ACTIONS, TYPES, type Column, type TRANSFER_DATA } from "@/types";
+import { ACTIONS, TYPES, type TRANSFER_DATA } from "@/types";
 import Draggable from "./common/Draggable.vue";
 import DropZone from "./common/DropZone.vue";
 import { ref } from "vue";
@@ -143,3 +132,9 @@ function toggleTaskModal() {
   isTaskModalActive.value = !isTaskModalActive.value;
 }
 </script>
+
+<style scoped>
+.rounded {
+  border-radius: 1.25rem;
+}
+</style>

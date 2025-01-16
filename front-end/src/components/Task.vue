@@ -9,13 +9,25 @@
     >
       <div>
         <div class="flex gap-2">
-          <span class="font-bold"> {{ task.title }}</span>
+          <span class="font-bold"
+            >ID: {{ task.taskId }} - {{ task.title }}</span
+          >
+
           <div class="flex gap-1">
-            <button class="text-sm font-bold" @click="toggleTaskModal()">
-              &#9998;
-            </button>
             <button class="text-sm font-bold" @click="toggleDeleteTaskModal()">
-              &#88;
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                class="h-5 w-5 text-red-500"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5 7h14v12a2 2 0 01-2 2H7a2 2 0 01-2-2V7zm2 2v10h2V9H7zm6 0v10h2V9h-2zm-4 0v10h2V9H9zm6 0v10h2V9h-2z"
+                  clip-rule="evenodd"
+                />
+                <path d="M3 5h18v2H3V5zm9-3a1 1 0 00-1 1v1h2V3a1 1 0 00-1-1z" />
+              </svg>
             </button>
           </div>
         </div>
