@@ -7,7 +7,7 @@ use App\Http\Controllers\TaskController;
 /*
     Rotas da CRUD Task (Index): faz a requisição para obter todos os registros
 */
-Route::get('/task', 'App\Http\Controllers\TaskController@index');
+Route::get('/tasks', 'App\Http\Controllers\TaskController@index');
 
 /*
     Rotas da CRUD Task (Create): faz a requisição para criar um novo registro de task

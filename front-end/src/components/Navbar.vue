@@ -25,7 +25,7 @@
 import { ref } from "vue";
 import ColumnForm from "./ColumnForm.vue";
 import Modal from "./common/Modal.vue";
-import { ACTIONS } from "@/types";
+import { ACTIONS } from "../types";
 
 const isColumnModalActive = ref(false);
 </script>

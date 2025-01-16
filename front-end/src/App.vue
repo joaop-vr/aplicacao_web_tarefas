@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import Column from "./components/Column.vue";
+import { onMounted, ref } from "vue";
 import Navbar from "./components/Navbar.vue";
-import { STORE } from "./stores/kanbanStore";
+import ColumnComponent from "./components/Column.vue";
+import { loadTasks } from "./stores/kanbanStore"; // Função de requisição
+import { STORE } from "./stores/kanbanStore"; // Usando o STORE para armazenar as colunas
+import type { Column, Task } from "./types";
+
+// Carrega as tarefas ao montar o componente
+onMounted(() => {
+  loadTasks();
+});
 </script>
 
 <template>
@@ -12,7 +20,12 @@ import { STORE } from "./stores/kanbanStore";
   >
     <Navbar />
     <div class="flex-1 flex justify-center gap-12 px-3 overflow-x-auto">
-      <Column v-for="column of STORE" :key="column.columnId" :column="column" />
+      <!-- Utilizando as colunas do STORE -->
+      <ColumnComponent
+        v-for="column of STORE"
+        :key="column.columnId"
+        :column="column"
+      />
     </div>
   </div>
 </template>

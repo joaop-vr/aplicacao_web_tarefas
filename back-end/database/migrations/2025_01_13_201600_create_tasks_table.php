@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->enum('status', ['nao iniciado', 'em andamento', 'concluido'])->default('nao iniciado');
+            $table->enum('status', ['nao-iniciado', 'em-andamento', 'concluido'])->default('nao-iniciado');
             $table->timestamps();
         });
     }

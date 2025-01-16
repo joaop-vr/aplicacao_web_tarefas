@@ -9,7 +9,7 @@
     >
       <div>
         <div class="flex gap-2">
-          <span class="font-bold"> {{ task.name }}</span>
+          <span class="font-bold"> {{ task.title }}</span>
           <div class="flex gap-1">
             <button class="text-sm font-bold" @click="toggleTaskModal()">
               &#9998;
@@ -45,7 +45,7 @@
     @close-modal="toggleDeleteTaskModal"
   >
     <div class="p-2">
-      <span>Tem certeza que deseja deletar {{ task && task.name }}?</span>
+      <span>Tem certeza que deseja deletar {{ task && task.title }}?</span>
       <div class="flex justify-around pt-3">
         <button @click="toggleDeleteTaskModal()">Não</button>
         <button @click="deleteTask">Sim</button>
@@ -74,6 +74,8 @@ const props = defineProps<{
   columnId: Column["columnId"];
 }>();
 
+console.log("Valor de task recebido (Task.vue):", props.task);
+
 const isTaskModalActive = ref(false);
 const isDeleteTaskModalActive = ref(false);
 
@@ -86,7 +88,7 @@ function toggleDeleteTaskModal() {
 }
 
 function deleteTask() {
-  kanbanStore.deleteTask(props.columnId, props.task.taskId);
+  kanbanStore.deleteTask(props.task.taskId);
   toggleDeleteTaskModal();
 }
 

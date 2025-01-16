@@ -5,14 +5,15 @@
     @submit="onSubmit"
     class="flex flex-col gap-2"
   >
-    <label for="name">Título</label>
+    <label for="title">Título</label>
     <Field
-      id="name"
+      id="title"
       type="text"
-      name="name"
+      name="title"
       class="p-2 border-2 rounded-sm border-gray-300"
     />
-    <ErrorMessage name="name" class="text-red-700" />
+    <ErrorMessage name="title" class="text-red-700" />
+
     <label for="description">Descrição</label>
     <Field
       id="description"
@@ -21,6 +22,7 @@
       class="p-2 border-2 rounded-sm border-gray-300"
     />
     <ErrorMessage name="description" class="text-red-700" />
+
     <label for="status">Status</label>
     <Field
       as="select"
@@ -37,6 +39,7 @@
     <button type="submit" class="mt-3">Concluir</button>
   </Form>
 </template>
+
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { toTypedSchema } from "@vee-validate/zod";
@@ -57,10 +60,11 @@ const props = defineProps<{
 }>();
 
 const taskForm = ref();
+console.log("Valor de task recebido (Task.vue):", props.task);
 
 onMounted(() => {
   if (props.action === ACTIONS.UPDATE_TASK) {
-    taskForm.value.setFieldValue("name", props.task?.name);
+    taskForm.value.setFieldValue("title", props.task?.title); //<!-- Alterado de name para title -->
     taskForm.value.setFieldValue("description", props.task?.description);
     taskForm.value.setFieldValue("status", props.task?.status);
   }
@@ -68,23 +72,28 @@ onMounted(() => {
 
 let validationSchema = toTypedSchema(taskFormSchema);
 
-function onSubmit(values: any) {
-  if (props.action === ACTIONS.ADD_TASK) {
-    kanbanStore.createTaskToColumn(props.columnId, {
-      name: values.name,
-      description: values.description,
-      status: values.status,
-    });
-  } else if (props.action === ACTIONS.UPDATE_TASK && props.task) {
-    let updatedTask = {
-      taskId: props.task.taskId,
-      name: values.name,
-      description: values.description,
-      status: values.status,
-    };
-
-    kanbanStore.updateTask(props.columnId, updatedTask);
+async function onSubmit(values: any) {
+  try {
+    if (props.action === ACTIONS.ADD_TASK) {
+      // Criar uma nova tarefa usando o kanbanStore.createTask
+      const newTask = await kanbanStore.createTask({
+        title: values.title,
+        description: values.description,
+        status: values.status,
+      });
+      // Passar a nova tarefa para a coluna correta
+      kanbanStore.moveTask(newTask.taskId, values.status);
+    } else if (props.action === ACTIONS.UPDATE_TASK && props.task) {
+      // Passando o taskId diretamente da props
+      const updatedTask = await kanbanStore.updateTask(props.task.taskId, {
+        title: values.title, // Valores do formulário
+        description: values.description,
+        status: values.status,
+      });
+    }
+    emit("close-modal"); // Fechar o modal após a ação ser completada
+  } catch (error) {
+    console.error("Erro ao enviar tarefa:", error);
   }
-  emit("close-modal");
 }
 </script>

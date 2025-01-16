@@ -86,6 +86,12 @@ import Modal from "./common/Modal.vue";
 import kanbanStore from "@/stores/kanbanStore";
 import Task from "./Task.vue";
 
+export type Column = {
+  columnId: string;
+  name: string;
+  tasks: Array<any>;
+};
+
 const props = defineProps<{
   column: Column;
 }>();
