@@ -19,4 +19,15 @@ Route::post('/task', 'App\Http\Controllers\TaskController@store');
 */
 Route::get('/task/{id}', 'App\Http\Controllers\TaskController@show');
 
+/*
+    Rotas da CRUD Task (Update): faz a requisição para atualizar um dos registros,
+    utilizada para alterar o Status das tasks quando mudam de coluna do Kanban
+*/
+Route::put('/task/{id}', 'App\Http\Controllers\TaskController@update');
+
+/*
+    Rotas da CRUD Task (Delete): remove 1 registro com base em seu "id"
+*/
+Route::delete('/task/{id}', 'App\Http\Controllers\TaskController@destroy');
+
 
