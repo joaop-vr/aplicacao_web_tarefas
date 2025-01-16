@@ -5,6 +5,14 @@
         Bem-vindo ao <span class="text-[#6B8E23]">Minhas Tarefas Space</span>,
         aqui você pode gerenciar suas tarefas da forma como desejar.
       </p>
+
+      <p class="text-lg text-gray-600 mt-2">
+        A aplicação permite que você
+        <span class="font-bold">crie novas tarefas</span>,
+        <span class="font-bold">visualize todas as suas tarefas</span>, ou até
+        mesmo <span class="font-bold">acesse uma tarefa específica</span> para
+        detalhes.
+      </p>
       <p class="text-xl text-gray-600 mt-2">
         Você pode escolher entre a visualização por
         <span class="font-bold">Kanban</span> e por
@@ -42,11 +50,12 @@
 .content {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza horizontalmente */
-  justify-content: center; /* Centraliza verticalmente */
-  flex: 1; /* Ocupa o espaço disponível */
-  text-align: center; /* Centraliza texto */
-  padding: 2rem;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-top: 8%;
   background-color: #dcdcdc;
 }
 </style>

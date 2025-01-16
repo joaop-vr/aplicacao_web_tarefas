@@ -13,13 +13,16 @@
   "dependencies": {
     "@vee-validate/zod": "^4.12.4",
     "@vueuse/core": "^10.7.1",
+    "axios": "^1.7.9",
     "uuid": "^9.0.1",
     "vee-validate": "^4.12.4",
     "vue": "^3.3.11",
-    "zod": "^3.22.4"
+    "vue-router": "^4.5.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",
+    "@types/axios": "^0.14.4",
     "@types/node": "^18.19.3",
     "@types/uuid": "^9.0.7",
     "@vitejs/plugin-vue": "^4.5.2",

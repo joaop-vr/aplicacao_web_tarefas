@@ -1,4 +1,17 @@
 <template>
+  <!-- Botão Voltar para a Home -->
+  <div class="ml-8 mb-4 text-left">
+    <button
+      class="text-white px-4 py-2 rounded"
+      style="background-color: #2f4f4f"
+      @click="goBackToHome"
+      @mouseover="handleMouseOver"
+      @mouseout="handleMouseOut"
+    >
+      Voltar para Home
+    </button>
+  </div>
+
   <div class="app-container">
     <div class="row flex-1 flex-col md:flex-row">
       <div
@@ -94,6 +107,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import {
   STORE,
   loadTasks,
@@ -107,6 +121,7 @@ import VerticalDivider from "../components/VerticalDivider.vue";
 import HorizontalDivider from "../components/HorizontalDivider.vue";
 import { ACTIONS } from "@/types";
 
+const router = useRouter();
 let selectedColumnId = ref("");
 const isTaskModalActive = ref(false);
 const searchTaskId = ref<string>("");
@@ -163,6 +178,30 @@ const handleCreateTask = () => {
 function toggleTaskModal() {
   isTaskModalActive.value = !isTaskModalActive.value;
 }
+
+// Função para retornar ao estado principal
+function handleBackToMain() {
+  isTaskDetailModalActive.value = false; // Fecha o modal
+}
+
+// Redireciona para Home.vue
+function goBackToHome() {
+  router.push({ name: "Home" }); // Nome da rota para Home.vue
+}
+
+function handleMouseOver(e: MouseEvent) {
+  const target = e.target as HTMLElement | null;
+  if (target) {
+    target.style.backgroundColor = "#556b2f";
+  }
+}
+
+function handleMouseOut(e: MouseEvent) {
+  const target = e.target as HTMLElement | null;
+  if (target) {
+    target.style.backgroundColor = "#2F4F4F";
+  }
+}
 </script>
 
 <style scoped>
@@ -214,7 +253,6 @@ body {
 }
 
 button {
-  width: 100%;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
