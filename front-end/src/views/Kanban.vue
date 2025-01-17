@@ -110,6 +110,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import {
   STORE,
+  initializeColumns,
   loadTasks,
   getTaskById,
   selectedTask,
@@ -128,6 +129,7 @@ const searchTaskId = ref<string>("");
 const isTaskDetailModalActive = ref(false);
 
 onMounted(async () => {
+  initializeColumns();
   await loadTasks();
 });
 
