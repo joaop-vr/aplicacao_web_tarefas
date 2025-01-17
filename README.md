@@ -85,7 +85,12 @@ Certifique-se de ter instalado no sistema:
    GRANT ALL PRIVILEGES ON DATABASE task_db TO root;
    ```
 
-6. Saia do PostgreSQL:
+6. Tornar o usuário root um superusuário (caso tenha acontecido algum erro na etapa anterior)
+
+  ```sql
+  ALTER USER root WITH SUPERUSER;
+  ```
+7. Saia do PostgreSQL:
 
    ```sql
    \q
@@ -105,7 +110,7 @@ Certifique-se de ter instalado no sistema:
 
 ### 3.3. **Configurar o Laravel para usar PostgreSQL**
 
-1. No arquivo `.env` do projeto, configure as credenciais do banco de dados:
+1. No diretório `back-end` do seu projeto, renomeie o arquivo `.env.example` para `.env` (caso o arquivo `.env` não exista):
 
    ```env
    DB_CONNECTION=pgsql
@@ -122,7 +127,13 @@ Certifique-se de ter instalado no sistema:
    php artisan config:clear
    ```
 
-3. Execute as migrações do banco:
+3. Gerar a chave no Laravel
+
+  ```bash
+  php artisan key:generate
+  ```
+
+4. Execute as migrações do banco:
 
    ```bash
    php artisan migrate
