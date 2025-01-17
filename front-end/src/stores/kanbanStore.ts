@@ -13,6 +13,19 @@ export const selectedTask = ref<any>(null);
 
 export const STORE = useLocalStorage<Column[]>(key, []);
 
+export function initializeColumns() {
+  if (STORE.value.length === 0) {
+    // Cria as colunas padrão
+    const defaultColumns = [
+      { name: "Não Iniciado", columnId: uuidv4(), tasks: [] },
+      { name: "Em Andamento", columnId: uuidv4(), tasks: [] },
+      { name: "Concluído", columnId: uuidv4(), tasks: [] },
+    ];
+
+    STORE.value.push(...defaultColumns);
+  }
+}
+
 export function createColumn(name: Column["name"]) {
   STORE.value.push({
     columnId: uuidv4(), // Cria um ID único para cada coluna
