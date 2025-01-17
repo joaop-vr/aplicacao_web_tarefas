@@ -38,13 +38,12 @@ A API está hospedada em:
 - **URL:** `/task`
 - **Método:** `POST`
 - **Descrição:** Cria uma nova tarefa no sistema.
-- **Descrição:** Cria uma nova tarefa no sistema.
 - **Body da Requisição:**
 
   ```json
   {
     "title": "Nome da tarefa",
-    "description": "Descrição da tarefa (opcional)",
+    "description": "Descrição da tarefa",
     "status": "nao-iniciado"
   }
   ```
@@ -59,7 +58,7 @@ A API está hospedada em:
     "data": {
       "id": 3,
       "title": "Nova tarefa",
-      "description": null,
+      "description": "descricao",
       "status": "nao-iniciado",
       "created_at": "2023-01-15T16:00:00.000000Z",
       "updated_at": "2023-01-15T16:00:00.000000Z"
