@@ -3,76 +3,56 @@
 - **Autor:** Joao Pedro Vicente Ramalho
 - **Contato:** [jpv.ramalho2013@gmail.com](mailto:jpv.ramalho2013@gmail.com)
 
-## **Parte 1: Back-end - Laravel com PostgreSQL**
+## **Sumário**
 
-- **1. Instalação do Laravel**
-
-  - Verificar requisitos (PHP, Composer e Git).
-  - Criar um projeto Laravel.
-  - Iniciar o servidor local para verificar a instalação.
-
-- **2. Configuração do Banco de Dados (PostgreSQL)**
-
-  - **2.1. Instalar e Configurar o PostgreSQL**
-    - Instalação do PostgreSQL.
-    - Criação do banco de dados, usuário e configuração de permissões.
-  - **2.2. Instalar Extensão do PostgreSQL no PHP**
-    - Instalação da extensão `php-pgsql`.
-  - **2.3. Configurar o Laravel para usar PostgreSQL**
-    - Configuração do arquivo `.env`.
-    - Limpeza do cache de configuração.
-    - Execução das migrações do banco de dados.
-
-- **3. Testar a Aplicação**
-  - Verificar o servidor local e testar a funcionalidade da aplicação no navegador.
-
----
-
-## **Parte 2: Front-end - Vue.js**
+### **Parte 1: Back-end - Laravel com PostgreSQL**
 
 - **1. Pré-requisitos**
-
-  - Garantir a instalação do **Node.js** (v16 ou superior) e **npm**.
-
 - **2. Instalação das Dependências**
+- **3. Configuração do Banco de Dados (PostgreSQL)**
+  - **3.1. Instalar e Configurar o PostgreSQL**
+  - **3.2. Instalar Extensão do PostgreSQL no PHP**
+  - **3.3. Configurar o Laravel para usar PostgreSQL**
+- **4. Executar o Projeto**
 
-  - Navegar até o diretório do projeto clonado.
-  - Instalar as dependências com `npm install`.
+### **Parte 2: Front-end - Vue.js**
 
+- **1. Pré-requisitos**
+- **2. Instalação das Dependências**
 - **3. Executar o Projeto**
-  - Iniciar o servidor de desenvolvimento com `npm run dev`.
-  - Testar o front-end no navegador.
+---
+
+
+### **Parte 1: Back-end - Laravel com PostgreSQL**
 
 ---
 
-## 1. **Instalação do Laravel**
+## 1. **Pré-requisitos**
 
-1. Certifique-se de ter o PHP, Composer e Git instalados no sistema.
-2. Crie um novo projeto Laravel:
+Certifique-se de ter instalado no sistema:
 
-   ```bash
-   composer create-project laravel/laravel aplicacao_web_tarefas
-   ```
+- **PHP** (v8.0 ou superior).  
+- **Composer** (gerenciador de dependências para PHP).  
+- **Extensões do PHP**: Certifique-se de ter habilitado extensões básicas como `openssl`, `pdo`, `mbstring`, `tokenizer`, `xml`, e `ctype` no seu ambiente PHP.  
 
-3. Navegue até o diretório do projeto:
+## 2. **Instalação das Dependências**
 
-   ```bash
-   cd aplicacao_web_tarefas
-   ```
-
-4. Inicie o servidor local para verificar se a instalação está correta:
+1. Após clonar o repositório, navegue até o diretório do projeto:
 
    ```bash
-   php artisan serve
+   cd back-end
+
    ```
 
-   Acesse `http://127.0.0.1:8000` no navegador para confirmar que a página inicial do Laravel aparece.
+2. Instale as dependências do projeto:
 
----
+    ```bash
+    composer install
 
-## 2. **Configuração do Banco de Dados (PostgreSQL)**
+    ```
+## 3. **Configuração do Banco de Dados (PostgreSQL)**
 
-### 2.1. **Instalar e Configurar o PostgreSQL**
+### 3.1. **Instalar e Configurar o PostgreSQL**
 
 1. Instale o PostgreSQL:
 
@@ -113,7 +93,7 @@
 
 ---
 
-### 2.2. **Instalar Extensão do PostgreSQL no PHP**
+### 3.2. **Instalar Extensão do PostgreSQL no PHP**
 
 1. Instale a extensão do PostgreSQL para PHP:
 
@@ -123,7 +103,7 @@
 
 ---
 
-### 2.3. **Configurar o Laravel para usar PostgreSQL**
+### 3.3. **Configurar o Laravel para usar PostgreSQL**
 
 1. No arquivo `.env` do projeto, configure as credenciais do banco de dados:
 
@@ -150,7 +130,7 @@
 
 ---
 
-## 3. **Testar a Aplicação**
+## 4. **Executar o Projeto**
 
 1. Inicie o servidor local do Laravel:
 
@@ -164,7 +144,9 @@ Se a página inicial do Laravel for exibida, a instalação foi concluída com s
 
 ---
 
-# Documentação: Configuração e Execução do Front-end Vue
+### **Parte 2: Front-end - Vue.js**
+
+---
 
 ## 1. **Pré-requisitos**
 
@@ -180,11 +162,11 @@ Certifique-se de ter instalado no sistema:
 1. Após clonar o repositório, navegue até o diretório do projeto:
 
    ```bash
-   cd caminho/do/projeto
+   cd front-end
 
    ```
 
-2.Instale as dependências do projeto:
+2. Instale as dependências do projeto:
 
     ```bash
     npm install
