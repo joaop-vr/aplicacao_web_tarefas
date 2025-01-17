@@ -26,9 +26,7 @@
           <td class="px-4 py-3 font-medium text-gray-900">{{ task.title }}</td>
           <td class="px-4 py-3">{{ task.description }}</td>
           <td class="px-4 py-3">{{ task.status }}</td>
-          <td class="px-4 py-3 flex items-center justify-end">
-            <a href="#" class="text-indigo-500 hover:underline">Detalhes</a>
-          </td>
+          <td class="px-4 py-3 flex items-center justify-end"></td>
         </tr>
       </tbody>
     </table>
@@ -37,26 +35,26 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import FilterButtons from "./FilterButtons.vue";
 import SearchForm from "./SearchForm.vue";
-import type { Task } from "@/types";
 
+// Alterar para aceitar uma estrutura genérica
 const props = defineProps<{
-  tasks: Task[];
+  tasks: Array<{ [key: string]: any }>; // Aceita qualquer chave e valor
 }>();
 
 const searchFilter = ref<string>("");
 const radioFilter = ref<string>("");
 
+// Função de filtragem
 const filteredTasks = computed(() => {
-  let tasks = [...props.tasks];
+  let tasks = [...(props.tasks || [])];
 
   if (searchFilter.value) {
     tasks = tasks.filter(
       (task) =>
-        task.taskId.toString().includes(searchFilter.value) ||
-        task.title.includes(searchFilter.value) ||
-        task.status.includes(searchFilter.value)
+        task.taskId?.toString().includes(searchFilter.value) ||
+        task.title?.toLowerCase().includes(searchFilter.value.toLowerCase()) ||
+        task.status?.toLowerCase().includes(searchFilter.value.toLowerCase())
     );
   }
 
