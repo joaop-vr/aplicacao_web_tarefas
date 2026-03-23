@@ -1,7 +1,6 @@
 # Documentação
 
 - **Autor:** Joao Pedro Vicente Ramalho
-- **Contato:** [jpv.ramalho2013@gmail.com](mailto:jpv.ramalho2013@gmail.com)
 
 ## **Sumário**
 
